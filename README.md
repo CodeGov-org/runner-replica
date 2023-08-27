@@ -2,6 +2,20 @@
 
 Runner for checking Internet Computer replica proposals
 
+## Getting Started
+
+Clone, then do "npm install".
+
+Then you can run the script as:
+"PROPOSAL=124272 npx runner"
+
+NOTE:
+It requires a cloud server that had already installed:
+- podman
+
+It requires that you have access to it through ssh console.
+Please update IP and file path on the CONST section of the script.
+
 ## Roadmap
 
 v0:
