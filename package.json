@@ -1,0 +1,17 @@
+{
+  "name": "runner-replica",
+  "version": "1.0.0",
+  "description": "Runner to check IC replica proposals and notify results.",
+  "type": "module",
+  "bin": {
+    "runner": "./src/runner.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tiago89",
+  "license": "MIT",
+  "dependencies": {
+    "ssh2": "^1.14.0"
+  }
+}
