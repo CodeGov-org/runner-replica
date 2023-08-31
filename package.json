@@ -4,7 +4,7 @@
   "description": "Runner to check IC replica proposals and notify results.",
   "type": "module",
   "bin": {
-    "runner": "./src/runner.js"
+    "runner": "./src/main.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

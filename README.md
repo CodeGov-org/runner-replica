@@ -11,6 +11,7 @@ Then you can run the script as:
 
 NOTE:
 It requires a cloud server that had already installed:
+
 - podman
 
 It requires that you have access to it through ssh console.
@@ -20,16 +21,17 @@ Please update IP and file path on the CONST section of the script.
 
 v0:
 [x] setup Hetzner
-[x] copy script
-[] run on trigger
+[x] copy manual script
+[] improve format
+[] add create and delete server (+ setup) steps
 
 v1:
 
-- add notifier of result
+[] add notifier of result
 
 v1.1:
 
-- add automatic trigger
+[] add automatic trigger
 
 v2:
 
