@@ -30,12 +30,12 @@ export class Runner {
               conn.end();
             })
             .on("data", (data) => {
-              console.log(data);
-              logStream.push(data);
+              console.log(this.cleanStream(data));
+              logStream.push(this.cleanStream(data));
             })
             .stderr.on("data", (data) => {
-              console.log(data);
-              logStream.push(data);
+              console.log(this.cleanStream(data));
+              logStream.push(this.cleanStream(data));
             });
         });
       })
@@ -47,5 +47,10 @@ export class Runner {
       });
 
     return logStream;
+  }
+
+  cleanStream(dataStream) {
+    // trim() will remove the excessive break line at end of a string
+    return dataStream.toString().trim();
   }
 }
