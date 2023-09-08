@@ -20,18 +20,20 @@ Please update IP and file path on the CONST section of the script.
 ## Roadmap
 
 v0:
-[x] setup Hetzner
-[x] copy manual script
-[x] improve format
+
+- [x] setup Hetzner
+- [x] copy manual script
+- [x] improve format
 
 v1:
-[] run code from an AWS lambda
-[] add notifier of result
+
+- [ ] run code from an AWS lambda
+- [ ] add notifier of result
 
 v1.1:
 
-[] add automatic trigger
-[] add create and delete server (+ setup) steps
+- [ ] add automatic trigger
+- [ ] add create and delete server (+ setup) steps
 
 v2:
 
