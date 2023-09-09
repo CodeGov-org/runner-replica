@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Runner } from "./runner.js";
+import { Runner } from "../src/runner.mjs";
 
 // Required Env Var
 const proposal = process.env.PROPOSAL;
@@ -12,3 +12,5 @@ if (!proposal) {
 // Main script
 const runner = new Runner(proposal);
 runner.call();
+
+
