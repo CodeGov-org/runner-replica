@@ -1,23 +1,18 @@
 FROM ubuntu:23.10
 
-# setup node
-# more info: https://github.com/nodesource/distributions
+# setup podman
 RUN apt-get update
-RUN apt-get install -y ca-certificates curl gnupg
-RUN mkdir -p /etc/apt/keyrings
-RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-RUN apt-get update
-RUN apt-get install nodejs -y
+RUN apt-get install -y curl podman
 
-# setup files
-COPY app /app
-COPY --chmod=744 docker-entrypoint.sh /app
-WORKDIR /app
+# download check script
+RUN curl --proto '=https' --tlsv1.2 -sSLO https://raw.githubusercontent.com/dfinity/ic/master/gitlab-ci/tools/repro-check.sh
+RUN chmod +x repro-check.sh
 
-# install node_modules
-RUN npm install
+# no need for sudo on this docker run
+RUN sed -i -e 's/sudo//g' repro-check.sh
+
+# setup entrypoint
+COPY --chmod=744 docker-entrypoint.sh .
 
 # run script
-entrypoint ["./docker-entrypoint.sh"]
-
+ENTRYPOINT ["./docker-entrypoint.sh"]

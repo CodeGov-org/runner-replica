@@ -1,4 +1,6 @@
 #!/bin/bash
 
+# TODO: add proposal param verification
+
 # check argument passed to docker run command
-PROPOSAL=$1 npx runner
+./repro-check.sh -p $1 
