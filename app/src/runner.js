@@ -5,6 +5,7 @@ import { SERVER_IP, SSH_KEY_PATH } from "./config.js";
 export class Runner {
   constructor(proposal) {
     this.proposal = proposal;
+    this.logStream = [];
   }
 
   // connects to external console
@@ -12,30 +13,26 @@ export class Runner {
   // prints logs to the local console
   // returns logs as an array of strings
   call() {
-    let logStream = [];
-
     // connect
     const conn = new Client();
     conn
       .on("ready", () => {
-        console.log("Console :: start");
-        console.log("Console :: run repro check");
+        this.handleStream("Console :: start");
+        this.handleStream("Console :: run repro check");
         conn.exec("./repro-check.sh -p " + this.proposal, (err, stream) => {
           if (err) throw err;
           stream
             .on("close", (code, signal) => {
-              console.log(
+              this.handleStream(
                 "Console :: end :: code: " + code + ", signal: " + signal
               );
               conn.end();
             })
             .on("data", (data) => {
-              console.log(this.cleanStream(data));
-              logStream.push(this.cleanStream(data));
+              this.handleStream(data);
             })
             .stderr.on("data", (data) => {
-              console.log(this.cleanStream(data));
-              logStream.push(this.cleanStream(data));
+              this.handleStream(data);
             });
         });
       })
@@ -46,11 +43,16 @@ export class Runner {
         privateKey: readFileSync(SSH_KEY_PATH),
       });
 
-    return logStream;
+    return this.logStream;
   }
 
-  cleanStream(dataStream) {
+  handleStream(dataStream) {
+    let parsed = dataStream.toString().trim();
+
+    // for local console
+    console.log(parsed);
+
     // trim() will remove the excessive break line at end of a string
-    return dataStream.toString().trim();
+    this.logStream.push(parsed);
   }
 }
