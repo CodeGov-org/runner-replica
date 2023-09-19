@@ -1,5 +1,5 @@
 import { Client } from "ssh2";
-import { SERVER_IP, getHetznerSSH } from "config.js";
+import { SERVER_IP, getHetznerSSH } from "./config.js";
 
 export class Runner {
   constructor(proposal) {
@@ -14,7 +14,7 @@ export class Runner {
   // returns logs as an array of strings
   async call() {
     // get ssh key secret
-    this.hetzner_ssh_key = getHetznerSSH();
+    this.hetzner_ssh_key = await getHetznerSSH();
 
     this.runReproCheck();
 
@@ -48,7 +48,7 @@ export class Runner {
         host: SERVER_IP,
         port: 22,
         username: "root",
-        ssh_key: this.hetzner_ssh_key,
+        privateKey: this.hetzner_ssh_key,
       });
   }
 
@@ -57,7 +57,7 @@ export class Runner {
     if (Buffer.isBuffer(dataStream)) dataStream = dataStream.toString();
 
     // .stringify is important to avoid [object Object]
-    let parsed = JSON.stringify(dataStream).trim();
+    let parsed = dataStream.trim();
 
     // for local console
     console.log(parsed);
