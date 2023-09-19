@@ -53,16 +53,18 @@ export class Runner {
   }
 
   handleStream(dataStream) {
-    // .toString is important to avoid Buffer byte data
-    if (Buffer.isBuffer(dataStream)) dataStream = dataStream.toString();
+    let parsed = dataStream;
 
-    // .stringify is important to avoid [object Object]
-    let parsed = dataStream.trim();
+    // .toString is important to avoid Buffer byte data
+    if (Buffer.isBuffer(dataStream)) parsed = parsed.toString();
+
+    // trim() will remove the excessive break line at end of a string
+    parsed = parsed.trim();
 
     // for local console
     console.log(parsed);
 
-    // trim() will remove the excessive break line at end of a string
+    // for result log
     this.logStream.push(parsed);
   }
 }
