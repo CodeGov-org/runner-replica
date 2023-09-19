@@ -2,13 +2,14 @@
 
 import { Runner } from "./runner.js";
 
-// Required Env Var
+// Required Env Vars
 const proposal = process.env.PROPOSAL;
-if (!proposal) {
-  console.log("Missing required env: PROPOSAL");
+const apiToken = process.env.API_TOKEN;
+if (!proposal || !apiToken) {
+  console.log("Missing required envs: PROPOSAL or API_TOKEN");
   process.exit(1);
 }
 
 // Main script
-const runner = new Runner(proposal);
-runner.call();
+const runner = new Runner(proposal, apiToken);
+await runner.call();
