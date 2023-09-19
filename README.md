@@ -27,18 +27,17 @@ v0:
 
 v1:
 
-- [ ] run code from an AWS lambda
-- [ ] add notifier of result
+- [ ] run long task (AWS Fargate)
+- [ ] add DSCVR notifier of result
+- [ ] add email notifier
 
 v1.1:
 
-- [ ] add automatic trigger
-- [ ] add create and delete server (+ setup) steps
+- [ ] add automatic trigger (AWS Lambda)
 
 v2:
 
 - make it easy for anyone to fork and config with their credentials
-- allow other providers to be integrated
 
 ## Learning
 
