@@ -2,13 +2,14 @@
 
 import { Runner } from "./runner.js";
 
+// TODO: add DSCVR POST env
 // Required Env Var
 const proposal = process.env.PROPOSAL;
 if (!proposal) {
-  console.log("Missing required env: PROPOSAL");
+  console.log("Missing required envs: PROPOSAL");
   process.exit(1);
 }
 
 // Main script
 const runner = new Runner(proposal);
-runner.call();
+await runner.call();

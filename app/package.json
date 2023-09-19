@@ -12,6 +12,7 @@
   "author": "tiago89",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.414.0",
     "ssh2": "^1.14.0"
   }
 }
