@@ -9,7 +9,7 @@ export const SERVER_IP = "37.27.9.86";
 export const getHetznerSSH = async () => {
   // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started.html
   const secretName = "code-gov/runner-replica/hetzner-ssh-key";
-  const client = new SecretsManagerClient({ region: "eu-north-1" });
+  const client = new SecretsManagerClient({ region: "eu-west-1" });
 
   let response;
 
