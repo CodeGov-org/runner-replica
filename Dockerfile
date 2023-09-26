@@ -12,12 +12,10 @@ RUN apt-get install nodejs -y
 
 # setup files
 COPY app /app
-COPY --chmod=744 docker-entrypoint.sh /app
 WORKDIR /app
 
 # install node_modules
 RUN npm install
 
 # run script
-entrypoint ["./docker-entrypoint.sh"]
-
+CMD npx runner
