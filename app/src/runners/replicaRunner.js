@@ -1,11 +1,12 @@
 import { Client } from "ssh2";
-import { SERVER_IP, getHetznerSSH } from "./config.js";
+import { SERVER_IP, getHetznerSSH } from "../config.js";
 
-export class Runner {
+export class ReplicaRunner {
   constructor(proposal) {
     this.proposal = proposal;
     this.logStream = [];
     this.hetzner_ssh_key = "";
+    this.sandbox = true;
   }
 
   // connects to external console
@@ -13,12 +14,28 @@ export class Runner {
   // prints logs to the local console
   // returns logs as an array of strings
   async call() {
+    if (this.sandbox) return this.sandboxedResult();
+
     // get ssh key secret
     this.hetzner_ssh_key = await getHetznerSSH();
 
     this.runReproCheck();
 
     return this.logStream;
+  }
+
+  sandboxedResult() {
+    return [
+      "Console :: run repro check",
+      "2023/10/01 | 15:38:26 | 1696174706 [+] Check the environment",
+      "2023/10/01 | 15:38:26 | 1696174706 [+] x86_64 architecture detected",
+      "...",
+      "2023/10/01 | 15:55:20 | 1696085118 [+] The shasum from the artifact built locally and the one fetched from the proposal/CDN match.",
+      "Local = 27ca7ea495b0863088130f2ea56fd2eb27355da986b040f6f5e90d1a9b501df9",
+      "CDN   = 27ca7ea495b0863088130f2ea56fd2eb27355da986b040f6f5e90d1a9b501df9",
+      "2023/10/01 | 15:55:21 | 1696085121 [+] Verification successful - total time: 0h 17m 56s",
+      "Console :: run :: end :: code: 0, signal: undefined",
+    ];
   }
 
   runReproCheck() {
