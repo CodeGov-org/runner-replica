@@ -6,7 +6,7 @@ export class ReplicaRunner {
     this.proposal = proposal;
     this.logStream = [];
     this.hetzner_ssh_key = "";
-    this.sandbox = true;
+    this.sandbox = false;
   }
 
   // connects to external console
