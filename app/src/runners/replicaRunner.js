@@ -19,7 +19,10 @@ export class ReplicaRunner {
     // get ssh key secret
     this.hetzner_ssh_key = await getHetznerSSH();
 
-    this.runReproCheck();
+    // await for a resolve() that is placed at the end of the call
+    await new Promise((resolve) => {
+      this.runReproCheck(resolve);
+    });
 
     return this.logStream;
   }
@@ -38,7 +41,7 @@ export class ReplicaRunner {
     ];
   }
 
-  runReproCheck() {
+  runReproCheck(resolve) {
     const conn = new Client();
     conn
       .on("ready", () => {
@@ -52,6 +55,7 @@ export class ReplicaRunner {
                 "Console :: run :: end :: code: " + code + ", signal: " + signal
               );
               conn.end();
+              resolve();
             })
             .on("data", (data) => {
               this.handleStream(data);

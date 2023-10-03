@@ -7,13 +7,24 @@ import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 // CONST VARs
 export const SERVER_IP = "37.27.9.86";
 export const NOTIFY_EMAILS = [
-  "tiagoloureiro89@gmail.com, tiago@mailinator.com",
+  "tiagoloureiro89@gmail.com",
+  "tiago@mailinator.com",
 ];
 
 // get dynamic data
 export const getHetznerSSH = async () => {
+  return getSecret("code-gov/runner-replica/hetzner-ssh-key");
+};
+
+export const getRunnerSecrets = async () => {
+  const secretsString = await getSecret(
+    "code-gov/runner-replica/runner-secrets"
+  );
+  return JSON.parse(secretsString);
+};
+
+const getSecret = async (secretName) => {
   // https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-started.html
-  const secretName = "code-gov/runner-replica/hetzner-ssh-key";
   const client = new SecretsManagerClient({ region: "eu-west-1" });
 
   let response;

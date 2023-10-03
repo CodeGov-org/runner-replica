@@ -15,12 +15,11 @@ const main = async () => {
   const runner = new ReplicaRunner(proposal);
   const result = await runner.call();
 
-  const joinedResult = result.join("\n");
   const dscvrPostId = "123";
 
   const notifiers = [
-    new EmailNotifier(NOTIFY_EMAILS, joinedResult),
-    new DscvrNotifier(dscvrPostId, joinedResult),
+    new EmailNotifier(NOTIFY_EMAILS, proposal, result),
+    new DscvrNotifier(dscvrPostId, result),
   ];
   for (let notifier of notifiers) {
     notifier.call();
