@@ -6,10 +6,7 @@ import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 
 // CONST VARs
 export const SERVER_IP = "37.27.9.86";
-export const NOTIFY_EMAILS = [
-  "tiagoloureiro89@gmail.com",
-  "tiago@mailinator.com",
-];
+export const NOTIFY_EMAILS = ["codegov@googlegroups.com"];
 
 // get dynamic data
 export const getHetznerSSH = async () => {

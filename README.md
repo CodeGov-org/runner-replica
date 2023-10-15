@@ -50,9 +50,9 @@ v0:
 
 v1:
 
-- [ ] run long task (AWS Fargate)
+- [x] run long task (AWS Fargate)
 - [ ] add DSCVR notifier of result
-- [ ] add email notifier
+- [x] add email notifier
 
 v1.1:
 
