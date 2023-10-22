@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-ssm": "^3.431.0"
+    "@aws-sdk/client-ecs": "latest",
+    "@aws-sdk/client-ssm": "latest"
   }
 }

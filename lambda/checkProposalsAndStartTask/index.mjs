@@ -184,14 +184,21 @@ function hasProposalsNotStarted(storedData) {
 }
 
 async function runFargateTask() {
+  // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ecs/command/RunTaskCommand/
   const client = new ECSClient({ region: "eu-west-1" });
   const input = {
-    // RunTaskRequest
-    taskDefinition: "runner-replica:11", // required
+    taskDefinition: "runner-replica",
     cluster: "code-gov",
     count: 1,
     launchType: "FARGATE",
     enableECSManagedTags: true,
+    networkConfiguration: {
+      awsvpcConfiguration: {
+        subnets: ["subnet-85fc75cc", "subnet-2958d94e", "subnet-0efc3155"],
+        securityGroups: ["sg-a9a330d1"],
+        assignPublicIp: "ENABLED",
+      },
+    },
   };
   const command = new RunTaskCommand(input);
 
@@ -206,5 +213,3 @@ async function runFargateTask() {
   // always log full response
   console.log(JSON.stringify(response));
 }
-
-handler();
