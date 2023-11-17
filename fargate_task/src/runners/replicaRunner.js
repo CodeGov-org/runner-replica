@@ -2,6 +2,8 @@ import { Client } from "ssh2";
 import { SERVER_IP, getHetznerSSH } from "../config.js";
 
 export class ReplicaRunner {
+  ANSI_ESCAPE_CODES_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+
   constructor(proposal) {
     this.proposal = proposal;
     this.logStream = [];
@@ -14,7 +16,11 @@ export class ReplicaRunner {
   // prints logs to the local console
   // returns logs as an array of strings
   async call() {
-    if (this.sandbox) return this.sandboxedResult();
+    if (this.sandbox) {
+      this.logStream = this.sandboxedResult();
+      this.cleanLogStream();
+      return this.logStream;
+    }
 
     // get ssh key secret
     this.hetzner_ssh_key = await getHetznerSSH();
@@ -24,20 +30,39 @@ export class ReplicaRunner {
       this.runReproCheck(resolve);
     });
 
+    this.cleanLogStream();
+
     return this.logStream;
   }
 
   sandboxedResult() {
     return [
-      "Console :: run repro check",
-      "2023/10/01 | 15:38:26 | 1696174706 [+] Check the environment",
-      "2023/10/01 | 15:38:26 | 1696174706 [+] x86_64 architecture detected",
       "...",
-      "2023/10/01 | 15:55:20 | 1696085118 [+] The shasum from the artifact built locally and the one fetched from the proposal/CDN match.",
-      "Local = 27ca7ea495b0863088130f2ea56fd2eb27355da986b040f6f5e90d1a9b501df9",
-      "CDN   = 27ca7ea495b0863088130f2ea56fd2eb27355da986b040f6f5e90d1a9b501df9",
-      "2023/10/01 | 15:55:21 | 1696085121 [+] Verification successful - total time: 0h 17m 56s",
-      "Console :: run :: end :: code: 0, signal: undefined",
+      "718a0696fe7ce8c79b280a76eed1bdf137028987fb1750439af80ede2b112e0b *disk-img.tar.zst",
+      "/tmp/tmp.ToufslWSdm/ic",
+      "\x1B[0;32mBuild complete for revision d73659a2baf78302b88e29e5c2bc891cde1e3e0b\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:18 | 1700251758 [+] Built IC-OS successfully\x1B[0m",
+      "\x1B[0;34m2023/11/17 | 20:09:34 | 1700251774 [+] Check hash of locally built artifact matches the one fetched from the proposal/CDN\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] Verification successful for GuestOS!\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] The shasum for GuestOS from the artifact built locally and the one fetched from the proposal/CDN match:\n" +
+      "\t\t\t\t\t\tLocal = 9cf5678e17e2503cce8ba4252caac2d0d08dbe60b21e3d9278e851f27c394936\n" +
+      "\t\t\t\t\t\tCDN   = 9cf5678e17e2503cce8ba4252caac2d0d08dbe60b21e3d9278e851f27c394936",
+      "\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] Verification successful for HostOS!\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] The shasum for HostOS from the artifact built locally and the one fetched from the proposal/CDN match:\n" +
+      "\t\t\t\t\t\tLocal = d8cd9ff5eb8bb8de6020e7a640b6c2b5c8d7365e79a8e66a6fb06f4c0bfe0b3f\n" +
+      "\t\t\t\t\t\tCDN   = d8cd9ff5eb8bb8de6020e7a640b6c2b5c8d7365e79a8e66a6fb06f4c0bfe0b3f\n" +
+      "\n" +
+      "\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] Verification successful for SetupOS!\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] The shasum for SetupOS from the artifact built locally and the one fetched from the proposal/CDN match:\n" +
+      "\t\t\t\t\t\tLocal = fa5e4c43802a30160382fdb55d3964c3b7b1a55ef7ad0410e7c136553a474b7f\n" +
+      "\t\t\t\t\t\tCDN   = fa5e4c43802a30160382fdb55d3964c3b7b1a55ef7ad0410e7c136553a474b7f\n" +
+      "\n" +
+      "\x1B[0m",
+      "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] All images are validated successfully\x1B[0m",
+      "\x1B[0;34m2023/11/17 | 20:09:34 | 1700251774 [+] Total time: 0h 36m 21s\x1B[0m",
+      "Console :: run :: end :: code: 0, signal: undefined"
     ];
   }
 
@@ -87,5 +112,9 @@ export class ReplicaRunner {
 
     // for result log
     this.logStream.push(parsed);
+  }
+
+  cleanLogStream() {
+    this.logStream = this.logStream.map((line) => line.replace(this.ANSI_ESCAPE_CODES_REGEX, ''));
   }
 }

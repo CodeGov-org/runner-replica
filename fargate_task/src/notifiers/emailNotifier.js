@@ -45,7 +45,7 @@ export class EmailNotifier {
       `Proposal ${this.proposal} finished it's automated verification.\n\n` +
       "The last lines were:\n" +
       "========\n" +
-      `${this.logs.slice(-5).join("\n")}\n` +
+      `${this.getLastLines()}\n` +
       "========\n\n" +
       `${this.randomFarewell()}\n\n\n` +
       "-------- Full Logs --------\n" +
@@ -54,12 +54,24 @@ export class EmailNotifier {
     );
   }
 
+  getLastLines() {
+    let lastLines = this.logs.slice(-13);
+    lastLines.pop();
+    return lastLines.join("\n");
+  }
+
   randomGreeting() {
     const greetings = [
       "* BipBop *",
       "Greetings Human,",
       "Hi Boss,",
       "Hi Gov(ernor),",
+      "Hi, mister!",
+      "Hello, sunshine!",
+      "I come in peace!",
+      "Ello, gov'nor!",
+      "You know who this is.",
+      "Greetings and salutations!"
     ];
     const randomPick = Math.floor(Math.random() * greetings.length);
     return greetings[randomPick];
@@ -72,6 +84,11 @@ export class EmailNotifier {
       "Sayonara.",
       "Your humble servant.",
       "I will be back.",
+      "At least, we meet for the first time for the last time!",
+      "Goodbye! I don't think you'll miss me!",
+      "Bye! If I don't see you around, I'll see you square.",
+      "Stay classy, mate.",
+      "Long live and prosper!"
     ];
     const randomPick = Math.floor(Math.random() * farewells.length);
     return farewells[randomPick];
