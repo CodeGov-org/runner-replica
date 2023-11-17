@@ -11,8 +11,8 @@ RUN apt-get update
 RUN apt-get install nodejs -y
 
 # setup files
-COPY app /app
-WORKDIR /app
+COPY fargate_task /fargate_task
+WORKDIR /fargate_task
 
 # install node_modules
 RUN npm install
