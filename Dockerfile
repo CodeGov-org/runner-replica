@@ -1,4 +1,4 @@
-FROM ubuntu:23.10
+FROM ubuntu:latest
 
 # setup node
 # more info: https://github.com/nodesource/distributions
@@ -11,8 +11,8 @@ RUN apt-get update
 RUN apt-get install nodejs -y
 
 # setup files
-COPY fargate_task /fargate_task
-WORKDIR /fargate_task
+COPY fargate_task /app
+WORKDIR /app
 
 # install node_modules
 RUN npm install

@@ -51,7 +51,7 @@ If you don't have access, feel free to request access to Tiago or to create a pu
 
 3. Commands to update it (after authentication):
 
-   - docker build -t runner-replica .
+   - docker build -t runner-replica . (or, if on M1/M2: docker buildx build --platform=linux/amd64 -t runner-replica .)
    - docker tag runner-replica:latest public.ecr.aws/i2c0e4t6/runner-replica:latest
    - docker push public.ecr.aws/i2c0e4t6/runner-replica:latest
 
