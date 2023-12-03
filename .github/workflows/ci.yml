@@ -16,14 +16,14 @@ jobs:
           node-version: 18
       # Fargate project
       - name: "fargate packages"
-      - run: cd fargate_task && npm clean-install
+        run: cd fargate_task && npm clean-install
       - name: "fargate prettier"
         run: npm run prettier:check
       - name: "fargate audit"
         run: npm audit
       # Lambda project
       - name: "lambda packages"
-      - run: cd ../lambda && npm clean-install
+        run: cd ../lambda && npm clean-install
       - name: "lambda prettier"
         run: npm run prettier:check
       - name: "lambda audit"
