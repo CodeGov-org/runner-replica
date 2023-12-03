@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { getRunnerSecrets } from "../config.js";
+import { getRunnerSecrets } from "../wrappers/awsWrapper.js";
 
 export class EmailNotifier {
   constructor(emails, proposal, logs) {

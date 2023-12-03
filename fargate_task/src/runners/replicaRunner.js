@@ -1,5 +1,6 @@
 import { Client } from "ssh2";
-import { SERVER_IP, getHetznerSSH, SANDBOX_MODE } from "../config.js";
+import { SERVER_IP, SANDBOX_MODE } from "../config.js";
+import { getHetznerSSH } from "../wrappers/awsWrapper.js";
 
 export class ReplicaRunner {
   ANSI_ESCAPE_CODES_REGEX =
