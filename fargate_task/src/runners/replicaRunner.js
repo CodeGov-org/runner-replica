@@ -1,5 +1,5 @@
 import { Client } from "ssh2";
-import { SERVER_IP, getHetznerSSH } from "../config.js";
+import { SERVER_IP, getHetznerSSH, SANDBOX_MODE } from "../config.js";
 
 export class ReplicaRunner {
   ANSI_ESCAPE_CODES_REGEX =
@@ -9,7 +9,6 @@ export class ReplicaRunner {
     this.proposal = proposal;
     this.logStream = [];
     this.hetzner_ssh_key = "";
-    this.sandbox = false;
   }
 
   // connects to external console
@@ -17,7 +16,7 @@ export class ReplicaRunner {
   // prints logs to the local console
   // returns logs as an array of strings
   async call() {
-    if (this.sandbox) {
+    if (SANDBOX_MODE) {
       this.logStream = this.sandboxedResult();
       this.cleanLogStream();
       return this.logStream;
