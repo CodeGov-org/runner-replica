@@ -19,4 +19,5 @@ jobs:
         run: cd fargate_task && npm run prettier:check
         run: cd ../lambda && npm run prettier:check
       - name: "audit"
-        run: npm audit      
+        run: cd ../fargate_task && npm audit
+        run: cd ../lambda && npm audit  
