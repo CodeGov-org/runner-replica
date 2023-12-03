@@ -1,15 +1,22 @@
 {
-  "name": "checkproposalsandstarttask",
+  "name": "runner-replica--lambda",
   "version": "1.0.0",
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "cd .. && husky install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:check": "npx prettier --check .",
+    "prettier:format": "npx prettier --write ."
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-ecs": "latest",
     "@aws-sdk/client-ssm": "latest"
+  },
+  "devDependencies": {
+    "husky": "latest",
+    "prettier": "latest"
   }
 }

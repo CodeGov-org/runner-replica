@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd fargate_task && npm run prettier:check
+cd ../lambda && npm run prettier:check

@@ -71,7 +71,7 @@ export class EmailNotifier {
       "I come in peace!",
       "Ello, gov'nor!",
       "You know who this is.",
-      "Greetings and salutations!"
+      "Greetings and salutations!",
     ];
     const randomPick = Math.floor(Math.random() * greetings.length);
     return greetings[randomPick];
@@ -88,7 +88,7 @@ export class EmailNotifier {
       "Goodbye! I don't think you'll miss me!",
       "Bye! If I don't see you around, I'll see you square.",
       "Stay classy, mate.",
-      "Long live and prosper!"
+      "Long live and prosper!",
     ];
     const randomPick = Math.floor(Math.random() * farewells.length);
     return farewells[randomPick];

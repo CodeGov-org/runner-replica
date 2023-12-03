@@ -1,0 +1,22 @@
+name: "linter"
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  linter:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      - run: npm clean-install
+      - name: "check prettier"
+        run: cd fargate_task && npm run prettier:check
+        run: cd ../lambda && npm run prettier:check
+      - name: "audit"
+        run: npm audit      

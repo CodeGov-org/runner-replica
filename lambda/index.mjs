@@ -21,7 +21,7 @@ export const handler = async (event) => {
   const storedData = await getSharedData();
   const storedProposalIds = getStoredProposalIds(storedData);
   const proposalIdsToAdd = activeProposalIds.filter(
-    (id) => !storedProposalIds.includes(id)
+    (id) => !storedProposalIds.includes(id),
   );
 
   // add missing proposal ids
@@ -30,7 +30,7 @@ export const handler = async (event) => {
     await joinAndUpdateSharedData(
       storedData,
       newProposalsArray,
-      activeProposalIds
+      activeProposalIds,
     );
   }
 
@@ -123,7 +123,6 @@ function buildNewProposals(proposalIds) {
     let newHash = {
       proposal: proposal_id,
       started_at: "",
-      finished_at: "",
     };
     newProposalsArray.push(newHash);
   }
@@ -134,11 +133,11 @@ function buildNewProposals(proposalIds) {
 async function joinAndUpdateSharedData(
   storedData,
   newProposalsArray,
-  activeProposalIds
+  activeProposalIds,
 ) {
   // remove inactive ones
   const activeProposalsArray = storedData.filter((proposalData) =>
-    activeProposalIds.includes(proposalData.proposal)
+    activeProposalIds.includes(proposalData.proposal),
   );
 
   // join new ones
@@ -169,7 +168,7 @@ async function putParameterCommand(newStoredData) {
   const hasVersion = response?.Version;
   if (!hasVersion) {
     console.log(
-      "Error, Failed to update Stored Data: " + JSON.stringify(response)
+      "Error, Failed to update Stored Data: " + JSON.stringify(response),
     );
   }
 
@@ -178,7 +177,7 @@ async function putParameterCommand(newStoredData) {
 
 function hasProposalsNotStarted(storedData) {
   const proposalsNotStarted = storedData.filter(
-    (proposalData) => proposalData.started_at == ""
+    (proposalData) => proposalData.started_at == "",
   );
   return proposalsNotStarted.length != 0;
 }
