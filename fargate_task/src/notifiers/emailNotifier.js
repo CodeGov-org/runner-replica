@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { getRunnerSecrets } from "../config.js";
+import { getRunnerSecrets } from "../wrappers/awsWrapper.js";
 
 export class EmailNotifier {
   constructor(emails, proposal, logs) {
@@ -55,7 +55,7 @@ export class EmailNotifier {
   }
 
   getLastLines() {
-    let lastLines = this.logs.slice(-13);
+    let lastLines = this.logs.slice(-12);
     lastLines.pop();
     return lastLines.join("\n");
   }
