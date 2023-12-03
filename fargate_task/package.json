@@ -1,5 +1,5 @@
 {
-  "name": "runner-replica",
+  "name": "runner-replica--fargate_task",
   "version": "1.0.0",
   "description": "Runner to check IC replica proposals and notify results.",
   "type": "module",
