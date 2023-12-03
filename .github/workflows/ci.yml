@@ -15,9 +15,11 @@ jobs:
         with:
           node-version: 18
       - run: npm clean-install
-      - name: "check prettier"
+      - name: "check fargate-prettier"
         run: cd fargate_task && npm run prettier:check
+      - name: "check fargate-audit"
+        run: npm audit
+      - name: "check lambda-prettier"
         run: cd ../lambda && npm run prettier:check
-      - name: "audit"
-        run: cd ../fargate_task && npm audit
-        run: cd ../lambda && npm audit  
+      - name: "check lambda-audit"
+        run: npm audit
