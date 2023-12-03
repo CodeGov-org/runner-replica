@@ -46,8 +46,9 @@ export class ReplicaRunner {
       "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] Verification successful for GuestOS!\x1B[0m",
       "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] The shasum for GuestOS from the artifact built locally and the one fetched from the proposal/CDN match:\n" +
         "\t\t\t\t\t\tLocal = 9cf5678e17e2503cce8ba4252caac2d0d08dbe60b21e3d9278e851f27c394936\n" +
-        "\t\t\t\t\t\tCDN   = 9cf5678e17e2503cce8ba4252caac2d0d08dbe60b21e3d9278e851f27c394936",
-      "\x1B[0m",
+        "\t\t\t\t\t\tCDN   = 9cf5678e17e2503cce8ba4252caac2d0d08dbe60b21e3d9278e851f27c394936\n" +
+        "\n" +
+        "\x1B[0m",
       "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] Verification successful for HostOS!\x1B[0m",
       "\x1B[0;32m2023/11/17 | 20:09:34 | 1700251774 [+] The shasum for HostOS from the artifact built locally and the one fetched from the proposal/CDN match:\n" +
         "\t\t\t\t\t\tLocal = d8cd9ff5eb8bb8de6020e7a640b6c2b5c8d7365e79a8e66a6fb06f4c0bfe0b3f\n" +

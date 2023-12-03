@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { ReplicaRunner } from "./runners/replicaRunner.js";
-import { getSharedData, NOTIFY_EMAILS } from "./config.js";
+import { getSharedData, NOTIFY_EMAILS, SANDBOX_MODE } from "./config.js";
 import { EmailNotifier } from "./notifiers/emailNotifier.js";
 import { DscvrNotifier } from "./notifiers/dscvrNotifier.js";
 
@@ -32,7 +32,7 @@ const getNextProposal = async () => {
   const sharedData = await getSharedData();
   let nextProposal = "";
   for (let entry of sharedData) {
-    if (entry.started_at != "") continue;
+    if (!SANDBOX_MODE && entry.started_at != "") continue;
 
     nextProposal = entry.proposal;
     break;
