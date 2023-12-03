@@ -14,9 +14,17 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 18
-      - run: npm clean-install
-      - name: "check prettier"
+      # Fargate project
+      - name: "fargate packages"
+        run: cd fargate_task && npm clean-install
+      - name: "fargate prettier"
         run: cd fargate_task && npm run prettier:check
-        run: cd ../lambda && npm run prettier:check
-      - name: "audit"
-        run: npm audit      
+      - name: "fargate audit"
+        run: cd fargate_task && npm audit
+      # Lambda project
+      - name: "lambda packages"
+        run: cd lambda && npm clean-install
+      - name: "lambda prettier"
+        run: cd lambda && npm run prettier:check
+      - name: "lambda audit"
+        run: cd lambda && npm audit
