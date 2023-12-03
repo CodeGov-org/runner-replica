@@ -32,7 +32,7 @@ const getNextProposal = async () => {
   const sharedData = await getSharedData();
   let nextProposal = "";
   for (let entry of sharedData) {
-    if (entry.finished_at != "") continue;
+    if (entry.started_at != "") continue;
 
     nextProposal = entry.proposal;
     break;

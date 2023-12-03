@@ -15,7 +15,7 @@ export const getHetznerSSH = async () => {
 
 export const getRunnerSecrets = async () => {
   const secretsString = await getSecret(
-    "code-gov/runner-replica/runner-secrets"
+    "code-gov/runner-replica/runner-secrets",
   );
   return JSON.parse(secretsString);
 };
@@ -28,7 +28,7 @@ const getSecret = async (secretName) => {
 
   try {
     response = await client.send(
-      new GetSecretValueCommand({ SecretId: secretName })
+      new GetSecretValueCommand({ SecretId: secretName }),
     );
   } catch (error) {
     // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html

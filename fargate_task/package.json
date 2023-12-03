@@ -7,7 +7,10 @@
     "runner": "./src/main.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "cd .. && husky install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:check": "npx prettier --check .",
+    "prettier:format": "npx prettier --write ."
   },
   "author": "tiago89",
   "license": "MIT",
@@ -16,5 +19,9 @@
     "@aws-sdk/client-ssm": "latest",
     "nodemailer": "latest",
     "ssh2": "latest"
+  },
+  "devDependencies": {
+    "husky": "latest",
+    "prettier": "latest"
   }
 }
