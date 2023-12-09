@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { ReplicaRunner } from "./runners/replicaRunner.js";
+import { CleanerRunner } from "./runners/cleanerRunner.js";
 import { NOTIFY_EMAILS, SANDBOX_MODE } from "./config.js";
 import { getSharedData, putParameterCommand } from "./wrappers/awsWrapper.js";
 import { EmailNotifier } from "./notifiers/emailNotifier.js";
@@ -30,6 +31,12 @@ const main = async () => {
     notifier.call();
   }
 
+  // clean caches to avoid running out of storage space
+  if (wasLastProposal(sharedData)) {
+    const cleaner = new CleanerRunner();
+    await cleaner.call();
+  }
+
   return result;
 };
 
@@ -54,6 +61,14 @@ const updateStartedAt = (proposal, sharedData) => {
   }
 
   putParameterCommand(sharedData);
+};
+
+const wasLastProposal = (sharedData) => {
+  for (let entry of sharedData) {
+    if (entry.started_at == "") return false;
+  }
+
+  return true;
 };
 
 // Script is called here
