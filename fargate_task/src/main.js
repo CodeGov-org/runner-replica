@@ -32,7 +32,7 @@ const main = async () => {
   }
 
   // clean caches to avoid running out of storage space
-  if (wasLastProposal(sharedData)) {
+  if (wasLastProposal(proposal, sharedData)) {
     const cleaner = new CleanerRunner();
     await cleaner.call();
   }
@@ -63,9 +63,9 @@ const updateStartedAt = (proposal, sharedData) => {
   putParameterCommand(sharedData);
 };
 
-const wasLastProposal = (sharedData) => {
+const wasLastProposal = (proposal, sharedData) => {
   for (let entry of sharedData) {
-    if (entry.started_at == "") return false;
+    if (entry.started_at == "" && entry.proposal != proposal) return false;
   }
 
   return true;
