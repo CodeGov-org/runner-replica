@@ -31,11 +31,9 @@ const main = async () => {
     notifier.call();
   }
 
-  // clean caches to avoid running out of storage space
-  if (wasLastProposal(sharedData)) {
-    const cleaner = new CleanerRunner();
-    await cleaner.call();
-  }
+  // always clean caches to avoid running out of storage space
+  const cleaner = new CleanerRunner();
+  await cleaner.call();
 
   return result;
 };
@@ -61,14 +59,6 @@ const updateStartedAt = (proposal, sharedData) => {
   }
 
   putParameterCommand(sharedData);
-};
-
-const wasLastProposal = (sharedData) => {
-  for (let entry of sharedData) {
-    if (entry.started_at == "") return false;
-  }
-
-  return true;
 };
 
 // Script is called here
