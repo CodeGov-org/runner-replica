@@ -14,9 +14,11 @@ export class CleanerRunner {
     this.hetzner_ssh_key = await getHetznerSSH();
 
     // await for a resolve() that is placed at the end of the call
+    console.log("Cleaner script :: started");
     await new Promise((resolve) => {
       this.runCleaner(resolve);
     });
+    console.log("Cleaner script :: finished");
 
     return true;
   }
@@ -46,7 +48,7 @@ export class CleanerRunner {
             });
         });
         conn.exec(
-          "podman container cleanup --all --rm --rmi",
+          "podman container stop --all && podman container cleanup --all --rm --rmi",
           (err, stream) => {
             if (err) throw err;
             stream
