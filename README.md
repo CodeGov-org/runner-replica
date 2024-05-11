@@ -7,11 +7,13 @@ Runner for checking Internet Computer replica proposals
 Clone, then do "npm install" in both fargate_task and lambda.
 
 If you want to run the fargate_task, inside it:
+
 - `npx runner`
 
 If you want to run the lambda:
+
 - in index.mjs make sure you call `handler();`
-- then run it: `npx index.mjs`
+- then run it: `node index.mjs`
 
 ## Requirements
 
@@ -19,6 +21,7 @@ It requires you to create an AWS Secrets, an AWS Parameter Store and a cloud ser
 
 Pretty much, the lambda is checking the open proposals, and if open, stores the new ids on the Parameter Store.
 Then on the fargate task:
+
 - it uses the ssh key access in AWS Secrets to call the Hetzner server and run it.
 - and the mail credentials on AWS Secrets to send email results.
 
@@ -27,6 +30,7 @@ Then on the fargate task:
 Cloud server should have the capacity and OS requested by the replica script.
 
 It should already have installed:
+
 - podman
 
 It requires that you have access to it through ssh console.

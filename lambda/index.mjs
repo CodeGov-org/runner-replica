@@ -52,7 +52,7 @@ export const handler = async (event) => {
 
 async function getAcceptingVotesReplicaProposals() {
   const url =
-    "https://ic-api.internetcomputer.org/api/v3/proposals?include_topic=TOPIC_REPLICA_VERSION_MANAGEMENT&include_reward_status=ACCEPT_VOTES";
+    "https://ic-api.internetcomputer.org/api/v3/proposals?include_topic=TOPIC_IC_OS_VERSION_ELECTION&include_reward_status=ACCEPT_VOTES";
 
   return new Promise((resolve) => {
     https
@@ -212,3 +212,5 @@ async function runFargateTask() {
   // always log full response
   console.log(JSON.stringify(response));
 }
+
+handler();
